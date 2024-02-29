@@ -38,7 +38,7 @@ public class Game {
             UI.infoMove(BOARD.getPlayerWithMove());
             try {
                 Move move = UserInput.makeAMove();
-                correctMove = MoveChecker.checkMove(BOARD, move);
+                correctMove = BOARD.checkMove(move);
 
                 if (correctMove) {
                     BOARD.getRows().get(move.getRow()).getCols().set(move.getCol(), BOARD.getPlayerWithMove().getMark());
@@ -46,7 +46,6 @@ public class Game {
                 }
             } catch (Exception e) {
                 UI.incorrectMove(e);
-                UserInput.getScanner().nextLine();
             }
             correctMove = false;
         }

@@ -1,5 +1,8 @@
 package com.likeahim.display;
 
+import com.likeahim.logic.control.Move;
+import com.likeahim.logic.exceptions.IncorrectMoveException;
+import com.likeahim.logic.marks.EmptyMark;
 import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.players.Player;
 import com.likeahim.ui.UserInput;
@@ -20,6 +23,13 @@ public class Board {
         for (int row = 0; row < numberOfRows; row++) {
             rows.add(new BoardRow());
         }
+    }
+
+    public boolean checkMove(Move move) throws IncorrectMoveException {
+        if (rows.get(move.getRow()).getCols().get(move.getCol()) instanceof EmptyMark)
+            return true;
+        else
+            throw new IncorrectMoveException();
     }
 
     public List<BoardRow> getRows() {

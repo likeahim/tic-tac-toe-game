@@ -43,6 +43,7 @@ public class UserInput {
         }
     }
 
+    //with try-catch
     private static Marker getMarker() {
         String mark = scanner.nextLine();
         if (mark.equals("x".toLowerCase())) return new Cross();
@@ -52,25 +53,18 @@ public class UserInput {
 
     //InputMissmatchEx.
     public static Move makeAMove() {
-        int row = intWithEnter();
-        int col = intWithEnter();
-        return new Move(row, col);
-
-    }
-
-    private static int intWithEnter() {
-        int input = 0;
-        boolean correctInput = false;
-        while (!correctInput) {
-            input = scanner.nextInt();
-            correctInput = true;
-            scanner.nextLine();
+        while(true) {
+            try {
+                int row = scanner.nextInt();
+                scanner.nextLine();
+                int col = scanner.nextInt();
+                return new Move(row, col);
+            } catch (InputMismatchException e) {
+                System.out.println("something went wrong, try again");
+            } finally {
+                scanner.nextLine();
+            }
         }
-        return input;
-    }
-
-    public static Scanner getScanner() {
-        return scanner;
     }
 
     public void incorrectMove(Exception e) {
