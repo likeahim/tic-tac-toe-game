@@ -1,5 +1,9 @@
 package com.likeahim.logic.marks;
 
+import com.likeahim.logic.players.User;
+
+import java.util.Objects;
+
 public class Cross implements Marker {
 
     private static final String name = "x";
@@ -10,5 +14,18 @@ public class Cross implements Marker {
 
     public static String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Marker cross = (Cross) obj;
+        return Objects.equals(name, getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

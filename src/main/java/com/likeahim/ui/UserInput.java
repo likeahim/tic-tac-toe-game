@@ -2,6 +2,7 @@ package com.likeahim.ui;
 
 import com.likeahim.logic.control.Move;
 import com.likeahim.logic.exceptions.IncorrectMoveException;
+import com.likeahim.logic.exceptions.IncorrectNumberOfRoundsException;
 import com.likeahim.logic.marks.Cross;
 import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.marks.Nought;
@@ -22,8 +23,11 @@ public class UserInput {
         System.out.println("Enter number of rounds to win");
         while (true) {
             try {
-                int rounds = scanner.nextInt();
-                return rounds;
+                int input = scanner.nextInt();
+                if (input > 0)
+                    return input;
+                else
+                    throw new IncorrectNumberOfRoundsException();
             } catch (Exception e) {
                 System.out.println("wrong input, try again");
             } finally {
@@ -33,12 +37,15 @@ public class UserInput {
     }
 
     public Marker markChoice() {
-        System.out.println("Cross or nought? Enter which mark you want to play,\n" + "enter 'x' to play cross\n" + "enter 'o' to play nought");
+        System.out.println("""
+                Cross or nought? Enter which mark you want to play,
+                enter 'x' to play cross
+                enter 'o' to play nought""");
         while (true) {
             try {
                 return getMarker();
             } catch (Exception e) {
-                System.out.println("wrong choice, try again");
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -51,9 +58,8 @@ public class UserInput {
         else throw new InputMismatchException("no such a mark, try again");
     }
 
-    //InputMissmatchEx.
     public static Move makeAMove() {
-        while(true) {
+        while (true) {
             try {
                 int row = scanner.nextInt();
                 scanner.nextLine();
@@ -96,4 +102,8 @@ public class UserInput {
         System.out.println(info);
     }
 
+    public void endGame() {
+        System.out.println("good bye, thanks for a game");
+        scanner.close();
+    }
 }
