@@ -1,7 +1,5 @@
 package com.likeahim.logic.marks;
 
-import com.likeahim.logic.players.User;
-
 import java.util.Objects;
 
 public class Cross implements Marker {

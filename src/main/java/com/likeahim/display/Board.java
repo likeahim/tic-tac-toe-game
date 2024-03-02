@@ -7,7 +7,6 @@ import com.likeahim.logic.marks.EmptyMark;
 import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.marks.Nought;
 import com.likeahim.logic.players.Player;
-import com.likeahim.ui.UserInput;
 
 import java.util.ArrayList;
 import java.util.List;

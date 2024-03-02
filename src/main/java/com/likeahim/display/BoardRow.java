@@ -2,7 +2,6 @@ package com.likeahim.display;
 
 import com.likeahim.logic.marks.EmptyMark;
 import com.likeahim.logic.marks.Marker;
-import org.yaml.snakeyaml.error.Mark;
 
 import java.util.ArrayList;
 import java.util.List;

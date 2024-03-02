@@ -1,29 +1,27 @@
 package com.likeahim.ui;
 
 import com.likeahim.logic.control.Move;
-import com.likeahim.logic.exceptions.IncorrectMoveException;
 import com.likeahim.logic.exceptions.IncorrectNumberOfRoundsException;
 import com.likeahim.logic.marks.Cross;
 import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.marks.Nought;
 import com.likeahim.logic.players.Player;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInput {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     public String putName() {
         System.out.println("Enter your name: ");
-        return scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
     public int putNumberOfRounds() {
         System.out.println("Enter number of rounds to win");
         while (true) {
             try {
-                int input = scanner.nextInt();
+                int input = SCANNER.nextInt();
                 if (input > 0)
                     return input;
                 else
@@ -31,7 +29,7 @@ public class UserInput {
             } catch (Exception e) {
                 System.out.println("wrong input, try again");
             } finally {
-                scanner.nextLine();
+                SCANNER.nextLine();
             }
         }
     }
@@ -52,7 +50,7 @@ public class UserInput {
 
     //with try-catch
     private static Marker getMarker() {
-        String mark = scanner.nextLine();
+        String mark = SCANNER.nextLine();
         if (mark.equals("x".toLowerCase())) return new Cross();
         else if (mark.equals("o".toLowerCase())) return new Nought();
         else throw new InputMismatchException("no such a mark, try again");
@@ -61,14 +59,14 @@ public class UserInput {
     public static Move makeAMove() {
         while (true) {
             try {
-                int row = scanner.nextInt();
-                scanner.nextLine();
-                int col = scanner.nextInt();
+                int row = SCANNER.nextInt();
+                SCANNER.nextLine();
+                int col = SCANNER.nextInt();
                 return new Move(row, col);
             } catch (InputMismatchException e) {
                 System.out.println("something went wrong, try again");
             } finally {
-                scanner.nextLine();
+                SCANNER.nextLine();
             }
         }
     }
@@ -104,6 +102,6 @@ public class UserInput {
 
     public void endGame() {
         System.out.println("good bye, thanks for a game");
-        scanner.close();
+        SCANNER.close();
     }
 }

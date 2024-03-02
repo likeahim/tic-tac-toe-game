@@ -7,7 +7,7 @@ import com.likeahim.ui.UserInput;
 
 public class Game {
 
-    private Board board = new Board();
+    private final Board board = new Board();
     private static final UserInput UI = new UserInput();
 
     public void startGame() {
@@ -42,6 +42,7 @@ public class Game {
                     if (board.checkWinScheme(board.getPlayerWithMove())) {
                         System.out.println("WINNNNNNNNNNEEEEEEERRRRRRRR");
                         board.setRoundWinner(board.getPlayerWithMove());
+                        UI.printInfo(board.toString());
                     }
                     moveCounter++;
                     board.changePlayerWithMove();
