@@ -11,19 +11,21 @@ public class Game {
     private static final UserInput UI = new UserInput();
 
     public void startGame() {
-        int numberOfRounds = UI.putNumberOfRounds();
+        int numberOfRoundsToWin = UI.putNumberOfRounds();
+        int roundsPlayed = 0;
         String name1 = UI.putName();
         boolean markChoiceCorrect = false;
         User user1 = getUser1(markChoiceCorrect, name1);
         User user2 = getUser2();
         arrangeAQueue(user1);
-        while (user1.getWins() < numberOfRounds && user2.getWins() < numberOfRounds) {
+        while (user1.getWins() < numberOfRoundsToWin && user2.getWins() < numberOfRoundsToWin) {
             board.cleanRoundData();
             playRound();
             UI.showRoundWinner(board.getRoundWinner());
+            roundsPlayed++;
         }
         board.setGameWinner(board.getRoundWinner());
-        UI.showGameWinner(board.getGameWinner(), numberOfRounds);
+        UI.showGameWinner(board.getGameWinner(), roundsPlayed);
         UI.endGame();
     }
 

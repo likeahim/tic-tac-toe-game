@@ -134,12 +134,13 @@ public class Board {
 
     @Override
     public String toString() {
-        String board = "";
+        StringBuilder board = new StringBuilder();
 
         for (int row = 0; row < numberOfRows; row++) {
-            board += rows.get(row).toString();
+            board.append(row).append(" ").append(rows.get(row).toString());
         }
-        return board;
+        board.append("   0 1 2\n");
+        return board.toString();
     }
 
     public void cleanRoundData() {

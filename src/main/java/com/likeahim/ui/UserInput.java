@@ -77,9 +77,9 @@ public class UserInput {
 
     public void showRoundWinner(Player roundWinner) {
         try {
-            System.out.println("this round won - " + roundWinner.getName());
+            System.out.println("this round won - " + roundWinner.getName() + "\n");
         } catch (NullPointerException e) {
-            System.out.println("no winner for this round, status quo");
+            System.out.println("no winner for this round, status quo\n");
         }
     }
 
