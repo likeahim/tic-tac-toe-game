@@ -7,6 +7,10 @@ public class Computer implements Player {
     private Marker mark;
     private int wins;
 
+    public Computer(Marker mark) {
+        this.mark = mark;
+    }
+
     public String getName() {
         return name;
     }

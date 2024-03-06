@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private final int numberOfRows = 3;
+    private final int numberOfRows = 10;
     private List<BoardRow> rows = new ArrayList<>();
     private Player roundWinner; //board
     private Player gameWinner; //board
@@ -38,14 +38,15 @@ public class Board {
         int diagonal = 0;
         if (isHorizontalScheme(mark)) return true;
         if (isVerticalScheme(mark)) return true;
-        if (isDiagonalDownToRight(mark, diagonal)) return true;
-        if (isDiagonalLeftDown(mark, diagonal)) return true;
+        if (isDiagonalDownToRight(mark)) return true;
+        if (isDiagonalLeftDown(mark)) return true;
 
         return false;
     }
 
-    private boolean isDiagonalLeftDown(Marker mark, int diagonal) {
-        int col = 2;
+    public boolean isDiagonalLeftDown(Marker mark) {
+        int diagonal = 0;
+        int col = numberOfRows - 1;
         for (int row = 0; row < numberOfRows; row++) {
             Marker marker = rows.get(row).getCols().get(col - row);
             if (mark.equals(marker))
@@ -54,7 +55,8 @@ public class Board {
         return diagonal == 3;
     }
 
-    private boolean isDiagonalDownToRight(Marker mark, int diagonal) {
+    public boolean isDiagonalDownToRight(Marker mark) {
+        int diagonal = 0;
         for (int row = 0; row < numberOfRows; row++) {
             Marker marker = rows.get(row).getCols().get(row);
             if (mark.equals(marker))
@@ -63,7 +65,7 @@ public class Board {
         return diagonal == 3;
     }
 
-    private boolean isVerticalScheme(Marker mark) {
+    public boolean isVerticalScheme(Marker mark) {
         for (int col = 0; col < numberOfRows; col++) {
             int counter = 0;
             for (int row = 0; row < numberOfRows; row++) {
@@ -77,7 +79,7 @@ public class Board {
         return false;
     }
 
-    private boolean isHorizontalScheme(Marker mark) {
+    public boolean isHorizontalScheme(Marker mark) {
         for (int row = 0; row < numberOfRows; row++) {
             long count = rows.get(row).getCols().stream()
                     .filter(marker -> marker.equals(mark))
@@ -157,5 +159,13 @@ public class Board {
             for (int col = 0; col < rows.get(row).getCols().size(); col++)
                 s.append(rows.get(row).getCols().get(col).toString());
         return s.toString();
+    }
+
+    public void makeAMove(Move move) {
+        rows.get(move.getRow()).getCols().set(move.getCol(), playerWithMove.getMark());
+    }
+
+    public int getNumberOfRows() {
+        return numberOfRows;
     }
 }

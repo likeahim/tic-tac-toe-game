@@ -56,7 +56,7 @@ public class UserInput {
         else throw new InputMismatchException("no such a mark, try again");
     }
 
-    public static Move makeAMove() {
+    public static Move enterTheMove() {
         while (true) {
             try {
                 int row = SCANNER.nextInt();
@@ -67,6 +67,27 @@ public class UserInput {
                 System.out.println("something went wrong, try again");
             } finally {
                 SCANNER.nextLine();
+            }
+        }
+    }
+
+    public boolean isSinglePlayerGame() {
+        while (true) {
+            System.out.println("""
+                    Enter:
+                    y -> single player
+                    n -> multiplayer
+                    """);
+            try {
+                String result = SCANNER.nextLine();
+                if (result.equals("y".toLowerCase()))
+                    return true;
+                else if (result.equals("n".toLowerCase()))
+                    return false;
+                else
+                    throw new InputMismatchException("no such a option, try again");
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

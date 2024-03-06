@@ -2,10 +2,18 @@ package com.likeahim.logic.control;
 
 import com.likeahim.display.Board;
 import com.likeahim.logic.marks.Marker;
+import com.likeahim.logic.players.Computer;
+import com.likeahim.logic.players.Player;
 import com.likeahim.logic.players.User;
 import com.likeahim.ui.UserInput;
 
 public class Game {
+
+    boolean gameWithComputer;
+
+    public Game(boolean gameWithComputer) {
+        this.gameWithComputer = gameWithComputer;
+    }
 
     private final Board board = new Board();
     private static final UserInput UI = new UserInput();
@@ -16,7 +24,9 @@ public class Game {
         String name1 = UI.putName();
         boolean markChoiceCorrect = false;
         User user1 = getUser1(markChoiceCorrect, name1);
-        User user2 = getUser2();
+        gameWithComputer = UI.isSinglePlayerGame();
+        Player user2;
+        user2 = getUser2();
         arrangeAQueue(user1);
         while (user1.getWins() < numberOfRoundsToWin && user2.getWins() < numberOfRoundsToWin) {
             board.cleanRoundData();
@@ -36,11 +46,15 @@ public class Game {
             UI.printInfo(board.toString());
             UI.infoMove(board.getPlayerWithMove());
             try {
-                Move move = UserInput.makeAMove();
+                Move move;
+                if (gameWithComputer && !(board.getPlayerWithMove() instanceof Computer))
+                    move = UserInput.enterTheMove();
+                else
+                    move = GPTMoves.computersMove(board, board.getPlayerWithMove().getMark());
                 correctMove = board.checkMove(move);
 
                 if (correctMove) {
-                    board.getRows().get(move.getRow()).getCols().set(move.getCol(), board.getPlayerWithMove().getMark());
+                    board.makeAMove(move);
                     if (board.checkWinScheme(board.getPlayerWithMove())) {
                         System.out.println("WINNNNNNNNNNEEEEEEERRRRRRRR");
                         board.setRoundWinner(board.getPlayerWithMove());
@@ -55,10 +69,15 @@ public class Game {
         }
     }
 
-    private User getUser2() {
-        String name2 = UI.putName();
+    private Player getUser2() {
+        Player user2;
         Marker mark2 = board.assignMark();
-        User user2 = new User(name2, mark2);
+        if (!gameWithComputer) {
+            String name2 = UI.putName();
+            user2 = new User(name2, mark2);
+        } else {
+            user2 = new Computer(mark2);
+        }
         Board.getPlayers().add(user2);
         return user2;
     }
