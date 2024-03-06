@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private final int numberOfRows = 10;
+    private final int numberOfRows = 3;
     private List<BoardRow> rows = new ArrayList<>();
     private Player roundWinner; //board
     private Player gameWinner; //board
@@ -167,5 +167,9 @@ public class Board {
 
     public int getNumberOfRows() {
         return numberOfRows;
+    }
+
+    public int getNumberOfFields() {
+        return numberOfRows * numberOfRows;
     }
 }

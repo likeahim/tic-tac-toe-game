@@ -42,12 +42,12 @@ public class Game {
     private void playRound() {
         boolean correctMove;
         int moveCounter = 0;
-        while (board.getRoundWinner() == null && moveCounter < 9) {
+        while (board.getRoundWinner() == null && moveCounter < board.getNumberOfFields()) {
             UI.printInfo(board.toString());
             UI.infoMove(board.getPlayerWithMove());
             try {
                 Move move;
-                if (gameWithComputer && !(board.getPlayerWithMove() instanceof Computer))
+                if (!gameWithComputer || !(board.getPlayerWithMove() instanceof Computer))
                     move = UserInput.enterTheMove();
                 else
                     move = GPTMoves.computersMove(board, board.getPlayerWithMove().getMark());
