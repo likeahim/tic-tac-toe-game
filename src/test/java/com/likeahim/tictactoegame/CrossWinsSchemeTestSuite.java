@@ -22,7 +22,7 @@ public class CrossWinsSchemeTestSuite {
         @Test
         void testCrossWinsHorizontalFirstRow() {
             //Given
-            TestHelpingMethods.fillTheRow(board, 0, 0, cross);
+            TestHelpingMethods.fillTheRowForTestWith3Rows(board, cross);
 
             //When
             horizontalScheme = board.isHorizontalScheme(cross);
@@ -35,7 +35,7 @@ public class CrossWinsSchemeTestSuite {
         @Test
         void testCrossWinsHorizontalSecondRow() {
             //Given
-            TestHelpingMethods.fillTheRow(board, 1, 0, cross);
+            TestHelpingMethods.fillTheRowForTestWith3Rows(board, cross);
 
             //When
             horizontalScheme = board.isHorizontalScheme(cross);
@@ -48,7 +48,7 @@ public class CrossWinsSchemeTestSuite {
         @Test
         void testCrossWinsHorizontalThirdRow() {
             //Given
-            TestHelpingMethods.fillTheRow(board, 2, 0, cross);
+            TestHelpingMethods.fillTheRowForTestWith3Rows(board, cross);
 
             //When
             horizontalScheme = board.isHorizontalScheme(cross);
@@ -66,7 +66,7 @@ public class CrossWinsSchemeTestSuite {
         @Test
         void testCrossWinsVerticalFirstColumn() {
             //Given
-            TestHelpingMethods.fillTheColumn(board, 0, 0, cross);
+            TestHelpingMethods.fillTheColumnForTestWith3Columns(board, 0, cross);
 
             //When
             verticalScheme = board.isVerticalScheme(cross);
@@ -79,7 +79,7 @@ public class CrossWinsSchemeTestSuite {
         @Test
         void testCrossWinsVerticalSecondColumn() {
             //Given
-            TestHelpingMethods.fillTheColumn(board, 0, 1, cross);
+            TestHelpingMethods.fillTheColumnForTestWith3Columns(board, 1, cross);
 
             //When
             verticalScheme = board.isVerticalScheme(cross);
@@ -92,7 +92,7 @@ public class CrossWinsSchemeTestSuite {
         @Test
         void testCrossWinsVerticalThirdColumn() {
             //Given
-            TestHelpingMethods.fillTheColumn(board, 0, 2, cross);
+            TestHelpingMethods.fillTheColumnForTestWith3Columns(board, 2, cross);
 
             //When
             verticalScheme = board.isVerticalScheme(cross);

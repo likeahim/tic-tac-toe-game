@@ -17,15 +17,15 @@ public class TestHelpingMethods {
         }
     }
 
-    public static void fillTheColumn(Board board, int row, int col, Marker mark) {
-        board.getRows().get(row).getCols().set(col, mark);
-        board.getRows().get(row + 1).getCols().set(col, mark);
-        board.getRows().get(row + 2).getCols().set(col, mark);
+    public static void fillTheColumnForTestWith3Columns(Board board, int col, Marker mark) {
+        for (int row = 0; row < 3; row ++) {
+            board.getRows().get(row).getCols().set(col, mark);
+        }
     }
 
-    public static void fillTheRow(Board board, int row, int col, Marker mark) {
-        board.getRows().get(row).getCols().set(0, mark);
-        board.getRows().get(row).getCols().set(col + 1, mark);
-        board.getRows().get(row).getCols().set(col + 2, mark);
+    public static void fillTheRowForTestWith3Rows(Board board, Marker mark) {
+        for (int col = 0; col < 3; col++) {
+            board.getRows().get(0).getCols().set(col, mark);
+        }
     }
 }

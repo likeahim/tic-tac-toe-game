@@ -1,6 +1,7 @@
 package com.likeahim.display;
 
 import com.likeahim.logic.control.Move;
+import com.likeahim.logic.control.Sequences;
 import com.likeahim.logic.exceptions.IncorrectMoveException;
 import com.likeahim.logic.marks.Cross;
 import com.likeahim.logic.marks.EmptyMark;
@@ -8,6 +9,7 @@ import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.marks.Nought;
 import com.likeahim.logic.players.Player;
 
+import javax.sound.midi.Sequence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Board {
     private Player gameWinner; //board
     private Player playerWithMove; //board
     private static List<Player> players = new ArrayList<>();
+    private final Sequences sequence = Sequences.THREE;
 
 
     public Board() {
@@ -51,8 +54,12 @@ public class Board {
             Marker marker = rows.get(row).getCols().get(col - row);
             if (mark.equals(marker))
                 diagonal++;
+            else
+                diagonal = 0;
+            if (diagonal == sequence.getRepetitions())
+                return true;
         }
-        return diagonal == 3;
+        return false;
     }
 
     public boolean isDiagonalDownToRight(Marker mark) {
@@ -61,31 +68,44 @@ public class Board {
             Marker marker = rows.get(row).getCols().get(row);
             if (mark.equals(marker))
                 diagonal++;
-        }
-        return diagonal == 3;
-    }
-
-    public boolean isVerticalScheme(Marker mark) {
-        for (int col = 0; col < numberOfRows; col++) {
-            int counter = 0;
-            for (int row = 0; row < numberOfRows; row++) {
-                Marker marker = rows.get(row).getCols().get(col);
-                if (mark.equals(marker))
-                    counter++;
-            }
-            if (counter == 3)
+            else
+                diagonal = 0;
+            if (diagonal == sequence.getRepetitions())
                 return true;
         }
         return false;
     }
 
+    public boolean isVerticalScheme(Marker mark) {
+        int duplicate = 0;
+        for (int col = 0; col < numberOfRows; col++) {
+            for (int row = 0; row < numberOfRows; row++) {
+                Marker nextMarker = rows.get(row).getCols().get(col);
+                if (mark.equals(nextMarker)) {
+                    duplicate++;
+                } else {
+                    duplicate = 0;
+                }
+                if (duplicate == sequence.getRepetitions())
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isHorizontalScheme(Marker mark) {
+        int duplicate = 0;
         for (int row = 0; row < numberOfRows; row++) {
-            long count = rows.get(row).getCols().stream()
-                    .filter(marker -> marker.equals(mark))
-                    .count();
-            if (count == 3)
-                return true;
+            for (int col = 0; col < numberOfRows; col++) {
+                Marker nextMarker = rows.get(row).getCols().get(col);
+                if (mark.equals(nextMarker)) {
+                    duplicate++;
+                } else {
+                    duplicate = 0;
+                }
+                if (duplicate == sequence.getRepetitions())
+                    return true;
+            }
         }
         return false;
     }

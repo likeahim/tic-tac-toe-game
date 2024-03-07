@@ -23,7 +23,7 @@ public class NoughtWinsSchemeTestSuite {
         @Test
         void testNoughtWinsHorizontalFirstRow() {
             //Given
-            TestHelpingMethods.fillTheRow(board, 0, 0, nought);
+            TestHelpingMethods.fillTheRowForTestWith3Rows(board, nought);
 
             //When
             horizontalScheme = board.isHorizontalScheme(nought);
@@ -36,7 +36,7 @@ public class NoughtWinsSchemeTestSuite {
         @Test
         void testNoughtWinsHorizontalSecondRow() {
             //Given
-            TestHelpingMethods.fillTheRow(board, 1, 0, nought);
+            TestHelpingMethods.fillTheRowForTestWith3Rows(board, nought);
 
             //When
             horizontalScheme = board.isHorizontalScheme(nought);
@@ -49,7 +49,7 @@ public class NoughtWinsSchemeTestSuite {
         @Test
         void testNoughtWinsHorizontalThirdRow() {
             //Given
-            TestHelpingMethods.fillTheRow(board, 2, 0, nought);
+            TestHelpingMethods.fillTheRowForTestWith3Rows(board, nought);
 
             //When
             horizontalScheme = board.isHorizontalScheme(nought);
@@ -67,7 +67,7 @@ public class NoughtWinsSchemeTestSuite {
         @Test
         void testNoughtWinsVerticalFirstColumn() {
             //Given
-            TestHelpingMethods.fillTheColumn(board, 0, 0, nought);
+            TestHelpingMethods.fillTheColumnForTestWith3Columns(board, 0, nought);
 
             //When
             verticalScheme = board.isVerticalScheme(nought);
@@ -80,7 +80,7 @@ public class NoughtWinsSchemeTestSuite {
         @Test
         void testNoughtWinsVerticalSecondColumn() {
             //Given
-            TestHelpingMethods.fillTheColumn(board, 0, 1, nought);
+            TestHelpingMethods.fillTheColumnForTestWith3Columns(board, 1, nought);
 
             //When
             verticalScheme = board.isVerticalScheme(nought);
@@ -93,7 +93,7 @@ public class NoughtWinsSchemeTestSuite {
         @Test
         void testNoughtWinsVerticalThirdColumn() {
             //Given
-            TestHelpingMethods.fillTheColumn(board, 0, 2, nought);
+            TestHelpingMethods.fillTheColumnForTestWith3Columns(board, 2, nought);
 
             //When
             verticalScheme = board.isVerticalScheme(nought);
