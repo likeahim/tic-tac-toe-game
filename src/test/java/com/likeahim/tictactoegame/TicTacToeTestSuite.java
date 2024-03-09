@@ -26,7 +26,7 @@ public class TicTacToeTestSuite {
     @Test
     void testDrawAfterAllMoves() {
         //Given
-        TestHelpingMethods.fillEverySecondFieldWithMark(board, cross);
+        TestHelpingMethods.fillEverySecondFieldWithMarkWith3Rows(board, cross);
 
         //When
         boolean isWinScheme = board.checkWinScheme(player);
@@ -39,7 +39,7 @@ public class TicTacToeTestSuite {
     @Test
     void testForThrowingAnException() {
         //Given
-        TestHelpingMethods.fillEverySecondFieldWithMark(board, cross);
+        TestHelpingMethods.fillEverySecondFieldWithMarkWith3Rows(board, cross);
 
         //When
         Move move = new Move(0, 0);

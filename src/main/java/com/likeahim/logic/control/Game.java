@@ -15,12 +15,15 @@ public class Game {
         this.gameWithComputer = gameWithComputer;
     }
 
-    private final Board board = new Board();
+    private Board board;
     private static final UserInput UI = new UserInput();
 
     public void startGame() {
         int numberOfRoundsToWin = UI.putNumberOfRounds();
         int roundsPlayed = 0;
+        Board.setNumberOfRows(UI.putSizeOfBoard());
+        Board.setCOL(Board.getNumberOfRows());
+        board = new Board();
         String name1 = UI.putName();
         boolean markChoiceCorrect = false;
         User user1 = getUser1(markChoiceCorrect, name1);

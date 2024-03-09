@@ -9,22 +9,22 @@ import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.marks.Nought;
 import com.likeahim.logic.players.Player;
 
-import javax.sound.midi.Sequence;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private final int numberOfRows = 3;
+    private static int COL;
+    private static int NUMBER_OF_ROWS;
     private List<BoardRow> rows = new ArrayList<>();
     private Player roundWinner; //board
     private Player gameWinner; //board
     private Player playerWithMove; //board
     private static List<Player> players = new ArrayList<>();
-    private final Sequences sequence = Sequences.THREE;
+    private final Sequences sequence = NUMBER_OF_ROWS == 3 ? Sequences.THREE : Sequences.FIVE;
 
 
     public Board() {
-        for (int row = 0; row < numberOfRows; row++) {
+        for (int row = 0; row < NUMBER_OF_ROWS; row++) {
             rows.add(new BoardRow());
         }
     }
@@ -48,8 +48,8 @@ public class Board {
 
     public boolean isDiagonalLeftDown(Marker mark) {
         int diagonal = 0;
-        int col = numberOfRows - 1;
-        for (int row = 0; row < numberOfRows; row++) {
+        int col = NUMBER_OF_ROWS - 1;
+        for (int row = 0; row < NUMBER_OF_ROWS; row++) {
             Marker marker = rows.get(row).getCols().get(col - row);
             if (mark.equals(marker))
                 diagonal++;
@@ -63,7 +63,7 @@ public class Board {
 
     public boolean isDiagonalDownToRight(Marker mark) {
         int diagonal = 0;
-        for (int row = 0; row < numberOfRows; row++) {
+        for (int row = 0; row < NUMBER_OF_ROWS; row++) {
             Marker marker = rows.get(row).getCols().get(row);
             if (mark.equals(marker))
                 diagonal++;
@@ -76,9 +76,9 @@ public class Board {
     }
 
     public boolean isVerticalScheme(Marker mark) {
-        for (int col = 0; col < numberOfRows; col++) {
+        for (int col = 0; col < NUMBER_OF_ROWS; col++) {
             int duplicate = 0;
-            for (int row = 0; row < numberOfRows; row++) {
+            for (int row = 0; row < NUMBER_OF_ROWS; row++) {
                 Marker nextMarker = rows.get(row).getCols().get(col);
                 if (mark.equals(nextMarker)) {
                     duplicate++;
@@ -94,8 +94,8 @@ public class Board {
 
     public boolean isHorizontalScheme(Marker mark) {
         int duplicate = 0;
-        for (int row = 0; row < numberOfRows; row++) {
-            for (int col = 0; col < numberOfRows; col++) {
+        for (int row = 0; row < NUMBER_OF_ROWS; row++) {
+            for (int col = 0; col < NUMBER_OF_ROWS; col++) {
                 Marker nextMarker = rows.get(row).getCols().get(col);
                 if (mark.equals(nextMarker)) {
                     duplicate++;
@@ -157,10 +157,14 @@ public class Board {
     public String toString() {
         StringBuilder board = new StringBuilder();
 
-        for (int row = 0; row < numberOfRows; row++) {
+        for (int row = 0; row < NUMBER_OF_ROWS; row++) {
             board.append(row).append(" ").append(rows.get(row).toString());
         }
-        board.append("   0 1 2\n");
+        board.append("  ");
+        for (int row = 0; row < NUMBER_OF_ROWS; row ++) {
+            board.append(" ").append(row);
+        }
+        board.append('\n');
         return board.toString();
     }
 
@@ -184,11 +188,23 @@ public class Board {
         rows.get(move.getRow()).getCols().set(move.getCol(), playerWithMove.getMark());
     }
 
-    public int getNumberOfRows() {
-        return numberOfRows;
+    public static int getNumberOfRows() {
+        return NUMBER_OF_ROWS;
+    }
+
+    public static int getCOL() {
+        return COL;
+    }
+
+    public static void setCOL(int COL) {
+        Board.COL = COL;
+    }
+
+    public static void setNumberOfRows(int numberOfRows) {
+        NUMBER_OF_ROWS = numberOfRows;
     }
 
     public int getNumberOfFields() {
-        return numberOfRows * numberOfRows;
+        return NUMBER_OF_ROWS * NUMBER_OF_ROWS;
     }
 }

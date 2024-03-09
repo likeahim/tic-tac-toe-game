@@ -31,7 +31,7 @@ public class TestHelpingMethods {
         }
     }
 
-    public static void fillEverySecondFieldWithMark(Board board, Marker mark) {
+    public static void fillEverySecondFieldWithMarkWith3Rows(Board board, Marker mark) {
         int counter = 0;
         Marker secondMark = (mark instanceof Cross) ? new Nought() : new Cross();
         int size = board.getRows().size();

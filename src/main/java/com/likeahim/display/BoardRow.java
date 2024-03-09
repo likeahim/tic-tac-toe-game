@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardRow {
-    private final int numberOfCols = 3;
     private final List<Marker> cols = new ArrayList<>();
 
     public List<Marker> getCols() {
@@ -15,7 +14,7 @@ public class BoardRow {
     }
 
     public BoardRow() {
-        for (int col = 0; col < numberOfCols; col++) {
+        for (int col = 0; col < Board.getCOL(); col++) {
             cols.add(new EmptyMark());
         }
     }
@@ -23,14 +22,10 @@ public class BoardRow {
     @Override
     public String toString() {
         String boardRow = "|";
-        for (int col = 0; col < numberOfCols; col++) {
+        for (int col = 0; col < Board.getCOL(); col++) {
             boardRow += cols.get(col) + "|";
         }
         boardRow += "\n";
         return boardRow;
-    }
-
-    public int getNumberOfCols() {
-        return numberOfCols;
     }
 }

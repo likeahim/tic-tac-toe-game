@@ -125,4 +125,21 @@ public class UserInput {
         System.out.println("good bye, thanks for a game");
         SCANNER.close();
     }
+
+    public int putSizeOfBoard() {
+        System.out.println("""
+                which version do you want to play?
+                enter 'c' for classic 3x3 game
+                enter 'e' for extended 10x10 game
+                """);
+        while (true) {
+            String s = SCANNER.nextLine();
+            if (s.equals("c".toLowerCase()))
+                return 3;
+            else if (s.equals("e".toLowerCase()))
+                return 10;
+            else
+                System.out.println("no such a version, try again");
+        }
+    }
 }
