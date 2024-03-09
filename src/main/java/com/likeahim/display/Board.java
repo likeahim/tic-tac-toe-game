@@ -38,7 +38,6 @@ public class Board {
 
     public boolean checkWinScheme(Player player) {
         Marker mark = player.getMark();
-        int diagonal = 0;
         if (isHorizontalScheme(mark)) return true;
         if (isVerticalScheme(mark)) return true;
         if (isDiagonalDownToRight(mark)) return true;
@@ -77,8 +76,8 @@ public class Board {
     }
 
     public boolean isVerticalScheme(Marker mark) {
-        int duplicate = 0;
         for (int col = 0; col < numberOfRows; col++) {
+            int duplicate = 0;
             for (int row = 0; row < numberOfRows; row++) {
                 Marker nextMarker = rows.get(row).getCols().get(col);
                 if (mark.equals(nextMarker)) {

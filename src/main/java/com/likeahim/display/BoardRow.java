@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardRow {
-    private final int numberOfCols = 10;
+    private final int numberOfCols = 3;
     private final List<Marker> cols = new ArrayList<>();
 
     public List<Marker> getCols() {
