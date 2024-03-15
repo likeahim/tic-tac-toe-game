@@ -114,7 +114,7 @@ public class GUI {
         Scene scene = new Scene(mainGrid, 600, 500);
         scene.setFill(Color.WHITE);
         stage.setScene(scene);
-        stage.setTitle("Basic Tic Tac Toe Board");
+        stage.setTitle("Tic Tac Toe");
         stage.setResizable(false);
         stage.show();
     }
