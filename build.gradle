@@ -1,13 +1,16 @@
 plugins {
-	id 'java'
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
-group = 'com.likeahim'
-version = '0.0.1-SNAPSHOT'
-
-java {
-	sourceCompatibility = '17'
+javafx {
+	version = "17"
+	modules = [ 'javafx.controls' ]
 }
+
+group 'com.likeahim'
+version '1.0-SNAPSHOT'
+mainClassName = 'com.likeahim.TicTacToeApp'
 
 repositories {
 	mavenCentral()

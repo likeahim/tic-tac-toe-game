@@ -27,4 +27,9 @@ public class Computer implements Player {
     public Marker getMark() {
         return mark;
     }
+
+    @Override
+    public void setName(String name) {
+
+    }
 }

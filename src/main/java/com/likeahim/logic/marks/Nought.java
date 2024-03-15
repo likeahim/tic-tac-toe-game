@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Nought implements Marker {
 
-    private static final String name = "o";
+    private static final String name = "O";
 
     @Override
     public String toString() {

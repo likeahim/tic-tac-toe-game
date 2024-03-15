@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Cross implements Marker {
 
-    private static final String name = "x";
+    private static final String name = "X";
     @Override
     public String toString() {
         return name;

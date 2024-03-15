@@ -7,4 +7,5 @@ public interface Player {
     int getWins();
     void setWins(int wins);
     Marker getMark();
+    void setName(String name);
 }
