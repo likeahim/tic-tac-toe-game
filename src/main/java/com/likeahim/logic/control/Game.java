@@ -19,11 +19,12 @@ public class Game {
     private static final UserInput UI = new UserInput();
 
     public void startGame() {
-        int numberOfRoundsToWin = UI.putNumberOfRounds();
-        int roundsPlayed = 0;
         Board.setNumberOfRows(UI.putSizeOfBoard());
         Board.setCOL(Board.getNumberOfRows());
         board = new Board();
+        board.setNumberOfRoundsToWin(UI.putNumberOfRounds());
+        int numberOfRoundsToWin = board.getNumberOfRoundsToWin();
+        int roundsPlayed = 0;
         String name1 = UI.putName();
         boolean markChoiceCorrect = false;
         User user1 = getUser1(markChoiceCorrect, name1);

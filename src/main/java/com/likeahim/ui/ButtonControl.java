@@ -1,5 +1,6 @@
 package com.likeahim.ui;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -14,6 +15,7 @@ public class ButtonControl {
     }
 
     public static Button getNewGame() {
+        newGame.setPadding(new Insets(15, 15, 15, 15));
         return newGame;
     }
 
@@ -22,11 +24,15 @@ public class ButtonControl {
     }
 
     public static Button getClose() {
+        close.setPadding(new Insets(15, 15, 15, 15));
         return close;
     }
 
     public static void controlGame(Stage stage) {
         close.setOnMouseClicked(e -> stage.close());
-        newGame.setOnMouseClicked(e -> GUI.setStage(stage));
+        newGame.setOnMouseClicked(e -> {
+            GUI.moveCounter.set(0);
+            GUI.setStage(stage);
+        });
     }
 }

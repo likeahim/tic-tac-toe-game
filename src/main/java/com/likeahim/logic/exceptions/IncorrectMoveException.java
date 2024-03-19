@@ -1,6 +1,6 @@
 package com.likeahim.logic.exceptions;
 
-public class IncorrectMoveException extends Exception {
+public class IncorrectMoveException extends RuntimeException {
     private final String message = "incorrect move, try again";
 
     @Override

@@ -9,13 +9,18 @@ import com.likeahim.logic.marks.Marker;
 import com.likeahim.logic.marks.Nought;
 import com.likeahim.logic.players.Player;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
     private static int COL;
     private static int NUMBER_OF_ROWS;
-    private List<BoardRow> rows = new ArrayList<>();
+    public int numberOfRoundsToWin;
+    private final List<BoardRow> rows = new ArrayList<>();
     private Player roundWinner; //board
     private Player gameWinner; //board
     private Player playerWithMove; //board
@@ -38,25 +43,70 @@ public class Board {
 
     public boolean checkWinScheme(Player player) {
         Marker mark = player.getMark();
-        if (isHorizontalScheme(mark)) return true;
+        //validate diagonal according to number of rows
+        if (sequence.getRepetitions() == 3) {
+            if (isDiagonalLeftDown(mark)) return true;
+            if (isDiagonalDownToRight(mark)) return true;
+        } else {
+            if (isBigBoardDiagonalLeftDown1(mark)) return true;
+            if (isBigBoardDiagonalRightDown1(mark)) return true;
+        }
         if (isVerticalScheme(mark)) return true;
-        if (isDiagonalDownToRight(mark)) return true;
-        if (isDiagonalLeftDown(mark)) return true;
+        if (isHorizontalScheme(mark)) return true;
 
         return false;
     }
 
     public boolean isDiagonalLeftDown(Marker mark) {
-        int diagonal = 0;
         int col = NUMBER_OF_ROWS - 1;
+        int diagonal = 0;
         for (int row = 0; row < NUMBER_OF_ROWS; row++) {
             Marker marker = rows.get(row).getCols().get(col - row);
             if (mark.equals(marker))
                 diagonal++;
             else
-                diagonal = 0;
-            if (diagonal == sequence.getRepetitions())
-                return true;
+                return false;
+        }
+        return diagonal == sequence.getRepetitions();
+    }
+
+    public boolean isBigBoardDiagonalLeftDown1(Marker mark) {
+        int row = 4;
+        while (row < NUMBER_OF_ROWS) {
+            int tempRow = row;
+            int diagonal = 0;
+            for (int col = 0; col <= row; col++) {
+                Marker tempMark = rows.get(tempRow).getCols().get(col);
+                if (mark.equals(tempMark))
+                    diagonal++;
+                else
+                    diagonal = 0;
+                tempRow--;
+                if (diagonal == sequence.getRepetitions())
+                    return true;
+            }
+
+            row++;
+        }
+        return isBigBoardDiagonalLeftDown2(mark);
+    }
+
+    public boolean isBigBoardDiagonalLeftDown2(Marker mark) {
+        int row = 5;
+        while (row > 0) {
+            int tempRow = row;
+            int diagonal = 0;
+            for (int col = 9; col >= row; col--) {
+                Marker tempMarker = rows.get(tempRow).getCols().get(col);
+                if (mark.equals(tempMarker))
+                    diagonal++;
+                else
+                    diagonal = 0;
+                tempRow++;
+                if (diagonal == sequence.getRepetitions())
+                    return true;
+            }
+            row--;
         }
         return false;
     }
@@ -68,9 +118,47 @@ public class Board {
             if (mark.equals(marker))
                 diagonal++;
             else
-                diagonal = 0;
-            if (diagonal == sequence.getRepetitions())
-                return true;
+                return false;
+        }
+        return diagonal == sequence.getRepetitions();
+    }
+
+    public boolean isBigBoardDiagonalRightDown1(Marker mark) {
+        int row = 0;
+        while (row < 6) {
+            int tempRow = row;
+            int diagonal = 0;
+            for (int col = 0; tempRow < NUMBER_OF_ROWS; col++) {
+                Marker marker = rows.get(tempRow).getCols().get(col);
+                if (mark.equals(marker))
+                    diagonal++;
+                else
+                    diagonal = 0;
+                if (diagonal == sequence.getRepetitions())
+                    return true;
+                tempRow++;
+            }
+            row++;
+        }
+        return isBigBoardDiagonalRightDown2(mark);
+    }
+
+    private boolean isBigBoardDiagonalRightDown2(Marker mark) {
+        int row = 8;
+        while (row > 3) {
+            int tempRow = row;
+            int diagonal = 0;
+            for (int col = 9; tempRow >= 0; col--) {
+                Marker marker = rows.get(tempRow).getCols().get(col);
+                if (mark.equals(marker))
+                    diagonal++;
+                else
+                    diagonal = 0;
+                if (diagonal == sequence.getRepetitions())
+                    return true;
+                tempRow--;
+            }
+            row--;
         }
         return false;
     }
@@ -93,8 +181,8 @@ public class Board {
     }
 
     public boolean isHorizontalScheme(Marker mark) {
-        int duplicate = 0;
         for (int row = 0; row < NUMBER_OF_ROWS; row++) {
+            int duplicate = 0;
             for (int col = 0; col < NUMBER_OF_ROWS; col++) {
                 Marker nextMarker = rows.get(row).getCols().get(col);
                 if (mark.equals(nextMarker)) {
@@ -161,7 +249,7 @@ public class Board {
             board.append(row).append(" ").append(rows.get(row).toString());
         }
         board.append("  ");
-        for (int row = 0; row < NUMBER_OF_ROWS; row ++) {
+        for (int row = 0; row < NUMBER_OF_ROWS; row++) {
             board.append(" ").append(row);
         }
         board.append('\n');
@@ -182,6 +270,17 @@ public class Board {
             for (int col = 0; col < rows.get(row).getCols().size(); col++)
                 s.append(rows.get(row).getCols().get(col).toString());
         return s.toString();
+    }
+
+    public void saveGameToFile(String fileName, String board) throws IOException {
+        PrintWriter streamOut = new PrintWriter(new FileWriter(fileName));
+        streamOut.write(board);
+        streamOut.close();
+    }
+
+    public String fromSerialData(File savedGame) {
+
+        return "";
     }
 
     public void makeAMove(Move move) {
@@ -206,5 +305,13 @@ public class Board {
 
     public int getNumberOfFields() {
         return NUMBER_OF_ROWS * NUMBER_OF_ROWS;
+    }
+
+    public int getNumberOfRoundsToWin() {
+        return numberOfRoundsToWin;
+    }
+
+    public void setNumberOfRoundsToWin(int numberOfRoundsToWin) {
+        this.numberOfRoundsToWin = numberOfRoundsToWin;
     }
 }

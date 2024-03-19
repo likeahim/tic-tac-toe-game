@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+//to launch game with GUI extends main class with Application and uncomment methods launch and start
 public class TicTacToeApp extends Application {
     public static void main(String[] args) {
 //        Game game = new Game(true);
